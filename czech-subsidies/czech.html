@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>D3: Scaling the CZE projection</title>
+		<script type="text/javascript" src="../d3/d3.v3.js"></script>
+		<style type="text/css">
+			/* rules here yet */		
+
+			div.tooltip_geomapping {   
+        position: absolute;           
+        text-align: center;           
+        width: 100px;                  
+        padding: 5px;             
+        color: white;
+        font: 14px sans-serif;        
+        background: #222;   
+        border: 0px;      
+        border-radius: 2px;           
+        pointer-events: none;         
+				}
+
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 1200;
+			var h = 800;
+
+			//Easy colors accessible via a 10-step ordinal scale
+			var czech_color = d3.scale.category10();
+
+			//div set up
+			var div = d3.select("body").append("div")   
+          .attr("class", "tooltip_geomapping")               
+          .style("opacity", 0);
+
+			//Define map projection
+			var projection = d3.geo.mercator()
+    	.center([15, 49])
+    	.scale(20000)
+    	.translate([w / 2, h / 2]);
+
+			//Define path generator
+			var path = d3.geo.path()
+							 .projection(projection);
+
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+
+			//Load in GeoJSON data
+			d3.json("CZE_adm2.json", function(json) {
+				
+				//Bind data and create one path per GeoJSON feature
+				svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+				   .style("fill", function(d, i) {
+			    	return czech_color(i);
+			    })
+			   .on("mouseover", function(d) {      
+              div
+                  .transition()        
+                  .duration(200)      
+                  .style("opacity", .9);      
+              div
+                  .html(d.properties.NAME_2)
+                  .style("left", (d3.event.pageX) + "px")     
+                  .style("top", (d3.event.pageY - 28) + "px");    
+            })                  
+            .on("mouseout", function(d) {       
+              div
+                .transition()        
+                .duration(500)      
+              . style("opacity", 0);   
+           });
+		
+			});
+			
+		</script>
+	</body>
+</html>

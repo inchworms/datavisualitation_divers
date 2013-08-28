@@ -1,0 +1,4 @@
+"GlobalSchemeId";"nameNationalLanguage";"nameEnglish";"budgetlines8Digit";"countryPayment"
+"CZ1";"EZZF - přímé platby";"Direct payments under European Agricultural Guarantee Fund";;"CZ"
+"CZ2";"EZZF - SOT bez IACS";"Other payments under European Agricultural Guarantee Fund";;"CZ"
+"CZ3";"EAFRD";"European Agricultural Fund for Rural Development";;"CZ"
