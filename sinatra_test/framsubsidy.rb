@@ -3,6 +3,7 @@ require 'bigdecimal'
 require 'json'
 require "sequel"
 require "sinatra"
+# require 'sinatra/reloader' if development?
 require './fetch_euro'
 require 'bigdecimal'
 
@@ -34,20 +35,19 @@ get "/" do
     end
   end
 
-  # CSV.generate do |csv|
-  #   csv << ["euro"]
-  #   i = 0
-  #   while i < @euro.length
-  #     csv << [@euro[i]]
-  #     i += 1
-  #   end
-  # end
-@total_amount = 0
-@amount_euro.each do |euro|
-  @total_amount = @total_amount + BigDecimal.new(euro.to_i)
-end
-
-"Czech Republic gets a total amount #{@total_amount.to_s(2)} Euro farmsubsidy from the EU"
+    # CSV.generate do |csv|
+    #   csv << ["euro"]
+    #   i = 0
+    #   while i < @euro.length
+    #     csv << [@euro[i]]
+    #     i += 1
+    #   end
+    # end
+  @total_amount = 0
+  @amount_euro.each do |euro|
+    @total_amount = @total_amount + BigDecimal.new(euro.to_i)
+  end
+  erb :amount
 end
 
 
