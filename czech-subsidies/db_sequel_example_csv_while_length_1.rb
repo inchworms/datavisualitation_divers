@@ -23,9 +23,9 @@ end
 # create a dataset from the items table
 payment = DB[:payment]
 i = 0
-payment_txt = CSV.open("cz_payment.txt", "r:UTF8", :headers => true, :col_sep => ";") do |csv|
+payment_txt = CSV.open("cz_payment.txt", "r:UTF-8", :headers => true, :col_sep => ";") do |csv|
   csv.each do |row|
-    print "." if i%100 == 0
+    print "." if i%100 == 
     payment.insert(
       global_recipient_id: row['globalRecipientId'],
       amount_euro: row['amountEuro'],
