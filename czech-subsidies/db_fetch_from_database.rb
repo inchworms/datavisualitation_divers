@@ -22,7 +22,7 @@ p @euro
 p @euro[1]
 p @euro.length
 
-CSV.open("euro.csv", "w", :force_quotes => true) do |csv|
+CSV.open("euro.csv", "w") do |csv|
   csv << ["euro"]
   i = 0
   while i < @euro.length
