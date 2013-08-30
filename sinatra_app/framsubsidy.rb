@@ -35,6 +35,7 @@ get "/" do
   @amount_euro.each do |euro|
     @total_amount = @total_amount + BigDecimal.new(euro.to_i)
   end
+  @money = Money.new(@total_amount, "EUR")
   erb :amount
 end
 
