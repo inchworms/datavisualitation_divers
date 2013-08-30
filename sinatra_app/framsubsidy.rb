@@ -4,8 +4,9 @@ require 'json'
 require "sequel"
 require "sinatra"
 require 'sinatra/reloader' if development?
-require './fetch_euro'
 require 'bigdecimal'
+require 'money'
+
 
 DB = Sequel.postgres("test")
 
@@ -29,20 +30,12 @@ get "/" do
     #     i += 1
     #   end
     # end
-CSV.open("euro.csv", "w", :force_quotes => true) do |csv|
-  i = 0
   @total_amount = 0
   @amount_euro.each do |euro|
-    while i < 5
-      @total_amount = @total_amount + euro
-      i += 1
-    end
+    @total_amount = @total_amount + BigDecimal.new(euro.to_i)
   end
-  csv << [@total_amount]
-  p @total_amount.class
-end
-
-  erb :amount1
+  @money = Money.new(@total_amount, "EUR")
+  erb :amount
 end
 
 
