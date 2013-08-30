@@ -3,23 +3,11 @@ require 'bigdecimal'
 require 'json'
 require "sequel"
 require "sinatra"
-# require 'sinatra/reloader' if development?
+require 'sinatra/reloader' if development?
 require './fetch_euro'
 require 'bigdecimal'
+require 'money'
 
-
-
-# get "/" do
-#   # content_type("text/csv")
-#   erb :bar
-#   @euro = @euro
-# end
-
-require 'csv'
-require 'bigdecimal'
-require 'json'
-require "sequel"
-require "sinatra"
 
 DB = Sequel.postgres("test")
 
